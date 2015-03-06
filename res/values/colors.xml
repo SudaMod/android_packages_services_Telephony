@@ -53,7 +53,7 @@
     <color name="dialer_dialpad_touch_tint">#330288d1</color>
     <color name="floating_action_button_touch_tint">#80ffffff</color>
 
-    <color name="network_operators_color_primary">#ff263238</color>
-    <color name="network_operators_color_primary_dark">#ff21272b</color>
+    <color name="network_operators_color_primary">#ff0288d1</color>
+    <color name="network_operators_color_primary_dark">#ff0277bd</color>
 
 </resources>

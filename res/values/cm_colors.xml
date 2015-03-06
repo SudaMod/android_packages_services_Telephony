@@ -15,6 +15,6 @@
      limitations under the License.
 -->
 <resources>
-    <color name="settings_theme_primary">#ff263238</color>
-    <color name="settings_theme_primary_dark">#ff21272b</color>
+    <color name="settings_theme_primary">#ff0288d1</color>
+    <color name="settings_theme_primary_dark">#ff0277bd</color>
 </resources>

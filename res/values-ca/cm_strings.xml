@@ -209,7 +209,7 @@
   <string name="ims_vt_call_quality_unknown">Desconeguda</string>
   <string name="ims_vt_call_quality_set_failed">No s\'ha pogut establir la qualitat de vídeo</string>
   <string name="perm_change_mobile_network">canvia el mode de xarxa (2G/3G)</string>
-  <string name="perm_change_mobile_network_desc">Permet a l\'app canviar entre dades 2G i dades 3G en qualsevol moment. Les 3G són més ràpides, però consumeixen més bateria i poden tenir costos addicionals.</string>
+  <string name="perm_change_mobile_network_desc">Permet a l\'aplicació canviar entre dades 2G i dades 3G en qualsevol moment. Les 3G són més ràpides, però consumeixen més bateria i poden tenir costos addicionals.</string>
   <string name="phone_number_label">El meu número de telèfon</string>
   <string name="phone_number_summary">Estableix el número de telèfon per aquest dispositiu</string>
   <string name="msim_mobile_network_settings_title">Configuració de xarxes mòbils de la SIM %d</string>
@@ -227,4 +227,27 @@
   <string name="wifi_only">Només Wi-Fi</string>
   <string name="cellular_preferred">Mòbil preferit</string>
   <string name="cellular_only">Només Mòbil</string>
+  <string name="call_barring">Bloqueig de trucades</string>
+  <string name="call_barring_outgoing">Bloqueig de trucades sortints</string>
+  <string-array name="call_barring_outgoing_display_values">
+    <item>Desactivat</item>
+    <item>Trucades internacionals en itinerància</item>
+    <item>Trucades internacionals</item>
+    <item>Trucades sortints</item>
+  </string-array>
+  <string-array name="call_barring_incoming_display_values">
+    <item>Desactivat</item>
+    <item>Itinerància</item>
+    <item>Tots</item>
+  </string-array>
+  <string name="call_barring_incoming">Bloqueig de trucades entrants</string>
+  <string name="input_password">Introdueix la teva contrasenya</string>
+  <string name="invalidPsw">Introdueix una contrasenya vàlida (4-8 dígits)</string>
+  <string name="labelCbCancelAll">Desactiva el bloqueig de trucades</string>
+  <string name="labelCbChangePassword">Canvia la contrasenya</string>
+  <string name="psw_enter_old">Contrasenya antiga</string>
+  <string name="psw_enter_new">Contrasenya nova</string>
+  <string name="psw_reenter_new">Torna a introduir la teva contrasenya</string>
+  <string name="no_call_barring">Bloqueig de trucades desactivat</string>
+  <string name="cb_psw_dont_match">Les contrasenyes no coincideixen</string>
 </resources>

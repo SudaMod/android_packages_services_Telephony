@@ -33,7 +33,6 @@ import android.os.IBinder;
 import android.os.Handler;
 import android.os.Message;
 import android.os.PersistableBundle;
-import android.os.ServiceManager;
 import android.os.RemoteException;
 import android.os.SystemProperties;
 import android.telecom.PhoneAccount;
@@ -59,7 +58,6 @@ import com.android.internal.telephony.CallerInfo;
 import com.android.internal.telephony.CallerInfoAsyncQuery;
 import com.android.internal.telephony.Connection;
 import com.android.internal.telephony.IccCard;
-import org.codeaurora.internal.IExtTelephony;
 import com.android.internal.telephony.MmiCode;
 import com.android.internal.telephony.Phone;
 import com.android.internal.telephony.PhoneConstants;
@@ -68,7 +66,6 @@ import com.android.internal.telephony.TelephonyCapabilities;
 import com.android.internal.telephony.TelephonyProperties;
 import com.android.internal.telephony.sip.SipPhone;
 import com.android.phone.CallGatewayManager.RawGatewayInfo;
-import com.android.services.telephony.TelephonyConnectionService;
 
 import java.util.Arrays;
 import java.util.List;
@@ -1873,7 +1870,8 @@ public class PhoneUtils {
         // isIdle includes checks for the DISCONNECTING/DISCONNECTED state.
         if(!fgCall.isIdle()) {
             for (Connection cn : fgCall.getConnections()) {
-                if (isLocalEmergencyNumber(PhoneGlobals.getInstance(), cn.getAddress())) {
+                if (PhoneNumberUtils.isLocalEmergencyNumber(PhoneGlobals.getInstance(),
+                        cn.getAddress())) {
                     return true;
                 }
             }
@@ -2457,7 +2455,7 @@ public class PhoneUtils {
         return SubscriptionManager.INVALID_SUBSCRIPTION_ID;
     }
 
-    static Phone getPhoneForPhoneAccountHandle(PhoneAccountHandle handle) {
+    public static Phone getPhoneForPhoneAccountHandle(PhoneAccountHandle handle) {
         if (handle != null && handle.getComponentName().equals(getPstnConnectionServiceName())
                 && handle.getId() != null) {
             try {
@@ -2522,76 +2520,6 @@ public class PhoneUtils {
         for (Phone phone : PhoneFactory.getPhones()) {
             phone.setRadioPower(enabled);
         }
-    }
-
-    private static IExtTelephony getIExtTelephony() {
-        return IExtTelephony.Stub.asInterface(ServiceManager.getService("extphone"));
-    }
-
-    public static boolean isLocalEmergencyNumber(Context context, String address) {
-        IExtTelephony extTelephony = getIExtTelephony();
-        if (extTelephony == null) {
-            return PhoneNumberUtils.isLocalEmergencyNumber(context, address);
-        }
-
-        try {
-            return extTelephony.isLocalEmergencyNumber(address);
-        } catch (RemoteException ex) {
-            Log.e("TelephonyConnectionService", "Exception: " + ex);
-            return PhoneNumberUtils.isLocalEmergencyNumber(context, address);
-        }
-    }
-
-    public static boolean isPotentialLocalEmergencyNumber(Context context, String address) {
-        IExtTelephony extTelephony = getIExtTelephony();
-        if (extTelephony == null) {
-            return PhoneNumberUtils.isPotentialLocalEmergencyNumber(context, address);
-        }
-
-        try {
-            return extTelephony.isPotentialLocalEmergencyNumber(address);
-        } catch (RemoteException ex) {
-            Log.e("TelephonyConnectionService", "Exception: " + ex);
-            return PhoneNumberUtils.isPotentialLocalEmergencyNumber(context, address);
-        }
-    }
-
-    public static boolean isEmergencyNumber(String address) {
-        IExtTelephony extTelephony = getIExtTelephony();
-        if (extTelephony == null) {
-            return PhoneNumberUtils.isEmergencyNumber(address);
-        }
-
-        try {
-            return extTelephony.isEmergencyNumber(address);
-        } catch (RemoteException ex) {
-            Log.e("TelephonyConnectionService", "Exception: " + ex);
-            return PhoneNumberUtils.isEmergencyNumber(address);
-        }
-    }
-
-    public static boolean isDeviceInSingleStandBy() {
-        boolean result = true;
-        try {
-            result = getIExtTelephony().isDeviceInSingleStandby();
-        } catch (RemoteException ex) {
-            Log.e("TelephonyConnectionService", "Exception : " + ex);
-        } catch (NullPointerException ex) {
-            Log.e("TelephonyConnectionService", "Exception : " + ex);
-        }
-        return result;
-    }
-
-    public static int getPhoneIdForECall() {
-        int phoneId = 0;
-        try {
-            phoneId = getIExtTelephony().getPhoneIdForECall();
-        } catch (RemoteException ex) {
-            Log.e("TelephonyConnectionService", "Exceptions : " + ex);
-        } catch (NullPointerException ex) {
-            Log.e("TelephonyConnectionService", "Exception : " + ex);
-        }
-        return phoneId;
     }
 
     public static class TimeCount extends CountDownTimer {
